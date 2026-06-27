@@ -1,0 +1,12 @@
+# Stage 3 (transcription) — the only Python dependency the project needs.
+# Default /transcribe path: local, no API key. Also needs ffmpeg on your PATH.
+faster-whisper
+
+# Optional: speaker labels for `/transcribe --diarize` (heavy — pulls in torch).
+# Also needs a HuggingFace token. Uncomment and reinstall if you want diarization.
+# whisperx
+
+# Stage 4 (annotated PDFs) — extracts highlights/comments (with author) from an
+# annotated PDF into Markdown, so reader attributions survive. Pulls in pymupdf.
+# Used by /synthesize when 02-annotations/ contains PDF files.
+pdf-annotations-to-markdown @ git+https://github.com/diegoaranas/pdf-annotations-to-markdown@v0.1.0

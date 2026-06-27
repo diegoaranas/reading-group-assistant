@@ -1,0 +1,25 @@
+# Real reading-group sessions stay local: copyrighted source texts, members'
+# annotations, and discussion transcripts shouldn't be published. Only the
+# 0000-EXAMPLE reference session is tracked.
+/sessions/*
+!/sessions/0000-EXAMPLE/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Audio recordings can be large — keep them out of version control.
+# (Transcripts ARE tracked; the audio itself usually shouldn't be.)
+sessions/**/03-discussion/*.mp3
+sessions/**/03-discussion/*.m4a
+sessions/**/03-discussion/*.wav
+sessions/**/03-discussion/*.ogg
+
+# Claude Code per-machine settings (personal permission allowlist, local paths).
+# Shared settings, if any, belong in .claude/settings.json instead.
+.claude/settings.local.json
+
+# OS noise
+.DS_Store
+Thumbs.db
