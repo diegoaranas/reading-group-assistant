@@ -29,6 +29,8 @@ between. Each session is a tidy folder of artifacts.
 5. **Discuss & record.** After the meeting, put the audio in `03-discussion/`
    and run `/transcribe sessions/NNNN-slug` (or hand-place a `transcript.md`).
 6. **Synthesize:** `/synthesize sessions/NNNN-slug` → `04-synthesis.md`.
+7. **(Optional) Export:** `/export sessions/NNNN-slug` → a PDF of the synthesis to
+   hand out. See [Export to PDF](#export-to-pdf).
 
 ## One-time setup
 
@@ -48,8 +50,10 @@ pip install -r requirements.txt   # faster-whisper + pdf-annotations-to-markdown
 # Optional: speaker labels (Stage 3, diarized)
 pip install whisperx              # local; uses pyannote for diarization
 
-# Optional: EPUB texts (Stage 1)
+# Optional: EPUB texts (Stage 1) and PDF export (/export)
 # install pandoc:  https://pandoc.org/installing.html
+# /export additionally needs a LaTeX engine (xelatex):
+#   Windows → MiKTeX https://miktex.org/download ; else TeX Live
 ```
 
 `requirements.txt` pulls in `pdf-annotations-to-markdown`, which `/synthesize`
@@ -141,6 +145,26 @@ has two parts:
 The point is to capture how the group advanced (or didn't advance) understanding
 of the text — drawing on both the written annotations and the recorded
 discussion. `sessions/0000-EXAMPLE/04-synthesis.md` is a worked example.
+
+## Export to PDF
+
+Any Markdown artifact — most often the synthesis, sometimes the summary — can be
+turned into a shareable PDF:
+
+```
+/export sessions/NNNN-slug          # → 04-synthesis.pdf (falls back to the summary)
+/export sessions/NNNN-slug/01-summary.md
+```
+
+Under the hood this is pandoc with the `xelatex` engine (chosen so curly quotes,
+em-dashes, and accented author names render correctly). The PDF is written next
+to its source `.md`. Ask for extras like a table of contents (`--toc`), numbered
+sections, or a specific font and the command will add them.
+
+**Setup:** install [pandoc](https://pandoc.org/installing.html) **and** a LaTeX
+engine — [MiKTeX](https://miktex.org/download) on Windows, TeX Live elsewhere.
+Both must be on your PATH. (Generated PDFs live under `sessions/*`, which is
+gitignored, so they stay local like the source texts.)
 
 ## Layout
 

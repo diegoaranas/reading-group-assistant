@@ -43,6 +43,7 @@ real.
 | `/summarize <session-or-source>` | 1 | Read the text, write `01-summary.md` per `templates/summary.md`. |
 | `/transcribe <audio-file>` | 3 | Run `scripts/transcribe.py`, write `03-discussion/transcript.md`. |
 | `/synthesize <session>` | 4 | Normalize annotations, read transcript, write `04-synthesis.md` (authoritative summary + the discussion's contribution) per `templates/synthesis.md`. |
+| `/export <session-or-.md>` | — | Convert a Markdown output (summary/synthesis) to a shareable PDF via `pandoc --pdf-engine=xelatex`. |
 
 ## Ingestion rules (Stage 1)
 
@@ -57,7 +58,9 @@ real.
 - **whisperx** (pip) + a **HuggingFace token** (`HF_TOKEN`) — only for diarized
   `/transcribe --diarize`, which adds `SPEAKER_NN` labels. Slower; first run
   downloads the pyannote model.
-- **pandoc** (optional) — only for EPUB → Markdown.
+- **pandoc** (optional) — EPUB → Markdown (Stage 1) and `/export` (Markdown →
+  PDF). The latter also needs a **LaTeX engine** (`xelatex`, from MiKTeX on
+  Windows / TeX Live elsewhere) on PATH.
 - **pdf-annotations-to-markdown** (pip, in `requirements.txt`) — provides the
   `extract-pdf-annotations` command. `/synthesize` uses it to pull
   highlights/comments **with their author** out of annotated PDFs in
