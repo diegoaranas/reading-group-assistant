@@ -1,6 +1,6 @@
 ---
 description: Stage 4 — normalize annotations and synthesize the text + the discussion's contribution
-argument-hint: <session-folder>
+argument-hint: <session-folder> [--lang <language>]
 ---
 
 Stage 4 of the reading-group workflow. The synthesis is **text-centered**: it
@@ -59,6 +59,16 @@ Produce `<session>/02-annotations/normalized.md`:
 
 ## Step 3 — Write the synthesis
 
+**Output language.** Decide what language to write `04-synthesis.md` in, in this
+order: (1) a `--lang <language>` / `--language <language>` flag in the arguments;
+(2) the `Language:` field in the session's `meta.md`; (3) default **English**.
+Write all prose and the section headings in that language, but keep verbatim
+material in its original language: quoted passages from the source and readers'
+questions/remarks quoted from the annotations (add a parenthetical translation
+only if it aids understanding). This does not change `normalized.md` from Step 1,
+which stays verbatim in the readers' own words. The output language is
+independent of the language of the text or the discussion.
+
 Write `<session>/04-synthesis.md` following `templates/synthesis.md`. It has two
 parts:
 
@@ -89,4 +99,4 @@ Rules for Part II:
 - Measure contributions against the text (Part I), not against the meeting. The
   test is "did this change/deepen how we understand the text?", not "was it said?"
 
-End with a one-line confirmation of the output path.
+End with a one-line confirmation of the output path and the output language used.

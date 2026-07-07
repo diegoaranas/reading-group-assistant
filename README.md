@@ -146,6 +146,23 @@ The point is to capture how the group advanced (or didn't advance) understanding
 of the text — drawing on both the written annotations and the recorded
 discussion. `sessions/0000-EXAMPLE/04-synthesis.md` is a worked example.
 
+## Working in another language
+
+The two Claude-written outputs — the summary (Stage 1) and the synthesis
+(Stage 4) — can be produced in any language. Two ways to choose it:
+
+- **Per run:** add a `--lang` flag, e.g. `/summarize sessions/0001-foo --lang Spanish`
+  or `/synthesize sessions/0001-foo --lang French`.
+- **Per session:** set `Language:` in the session's `meta.md` (the `/new-session`
+  template seeds it to `English`), and both commands honor it without a flag. A
+  `--lang` flag on the command still overrides it.
+
+The output language is independent of the source text's language — a German text
+can get an English summary, or vice versa. Quoted passages from the source and
+readers' verbatim questions are left in their original language; only the written
+prose and headings are translated. (This is about the two AI-written outputs;
+transcription follows the audio's own language.)
+
 ## Export to PDF
 
 Any Markdown artifact — most often the synthesis, sometimes the summary — can be

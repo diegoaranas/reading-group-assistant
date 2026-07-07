@@ -27,6 +27,7 @@ Steps:
    - **Date:** <today's date>
    - **Source:** <path under source/ or URL — fill in>
    - **Members:** <comma-separated, fill in>
+   - **Language:** English  <!-- output language for /summarize + /synthesize; change if the group works in another language -->
 
    ## Notes
    <anything worth remembering about this session>

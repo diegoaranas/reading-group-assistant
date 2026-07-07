@@ -4,6 +4,7 @@
 - **Date:** 2026-06-25
 - **Source:** source/source.url
 - **Members:** Ada, Bilal, Chen
+- **Language:** English  <!-- output language for /summarize + /synthesize; change if the group works in another language -->
 
 ## Notes
 

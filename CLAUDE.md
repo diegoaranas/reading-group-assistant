@@ -40,9 +40,9 @@ real.
 | Command | Stage | Does |
 |---|---|---|
 | `/new-session "Title"` | — | Scaffold the next numbered session folder + `meta.md`. |
-| `/summarize <session-or-source>` | 1 | Read the text, write `01-summary.md` per `templates/summary.md`. |
+| `/summarize <session-or-source> [--lang L]` | 1 | Read the text, write `01-summary.md` per `templates/summary.md`. |
 | `/transcribe <audio-file>` | 3 | Run `scripts/transcribe.py`, write `03-discussion/transcript.md`. |
-| `/synthesize <session>` | 4 | Normalize annotations, read transcript, write `04-synthesis.md` (authoritative summary + the discussion's contribution) per `templates/synthesis.md`. |
+| `/synthesize <session> [--lang L]` | 4 | Normalize annotations, read transcript, write `04-synthesis.md` (authoritative summary + the discussion's contribution) per `templates/synthesis.md`. |
 | `/export <session-or-.md>` | — | Convert a Markdown output (summary/synthesis) to a shareable PDF via `pandoc --pdf-engine=xelatex`. |
 
 ## Ingestion rules (Stage 1)
@@ -80,3 +80,8 @@ real.
   readers *added* to understanding it (new angles, connections, objections,
   defenses, open questions). Be honest when a category produced nothing — a thin
   discussion should read as thin.
+- **Output language.** `/summarize` and `/synthesize` write in the language set by
+  a `--lang <language>` flag, else the session `meta.md`'s `Language:` field, else
+  English. Translate the prose and headings, but keep source quotes and readers'
+  verbatim remarks/questions in their original language. This is independent of
+  the language of the source text or the discussion.
