@@ -32,6 +32,15 @@ extract-pdf-annotations "<session>/02-annotations/<file>.pdf" \
   `Unattributed` — keep that label, never guess a name.
 - If a PDF yields `No annotations found.`, it's a clean copy of the text, not an
   annotation — skip it (don't treat the whole text as a reader's remarks).
+- Each extracted mark is labeled with its **markup type and color** — e.g.
+  `highlight (gold)`, `underline (blue)`, `strikeout (red)`. Treat the *type* as a
+  weak signal (a bare highlight/underline flags a passage as notable; a strikeout
+  suggests the reader is contesting or cutting it; a comment carries the reader's
+  actual words and always outweighs the mark type). Do **not** invent a fixed
+  meaning for colors — a reader's color scheme is personal and unknown. But if one
+  reader's marks show a consistent pattern (e.g. every objection is red), you may
+  note that pattern, attributed to that reader, rather than asserting it as a
+  universal key.
 - Read the generated `*.annotations.md` files (not the source PDFs) in step 1b.
 
 ### 1b. Read and consolidate
@@ -48,6 +57,9 @@ Produce `<session>/02-annotations/normalized.md`:
 - Group remarks by reader, and within that, tag each with the part of the text it
   refers to (page/section) when discernible.
 - Preserve questions verbatim where possible; lightly clean obvious typos.
+- For marks pulled from PDFs, keep the markup type/color label when it adds
+  meaning (e.g. a strikeout, or a reader's evident color pattern); drop it when
+  it's just noise (an isolated highlight with no comment needs no color noted).
 
 ## Step 2 — Read the rest of the session
 

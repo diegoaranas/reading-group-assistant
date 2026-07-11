@@ -6,7 +6,8 @@ faster-whisper
 # Also needs a HuggingFace token. Uncomment and reinstall if you want diarization.
 # whisperx
 
-# Stage 4 (annotated PDFs) — extracts highlights/comments (with author) from an
-# annotated PDF into Markdown, so reader attributions survive. Pulls in pymupdf.
-# Used by /synthesize when 02-annotations/ contains PDF files.
-pdf-annotations-to-markdown @ git+https://github.com/diegoaranas/pdf-annotations-to-markdown@v0.1.0
+# Stage 4 (annotated PDFs) — extracts highlights/comments (with author, markup
+# type, and color) from an annotated PDF into Markdown, so reader attributions
+# survive. Pulls in pymupdf. Used by /synthesize when 02-annotations/ has PDFs.
+# v0.2.0 adds the markup-type/color support.
+pdf-annotations-to-markdown @ git+https://github.com/diegoaranas/pdf-annotations-to-markdown@v0.2.0
