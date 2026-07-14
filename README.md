@@ -10,9 +10,10 @@ between. Each session is a tidy folder of artifacts.
 | Stage | Who | Command | Output |
 |---|---|---|---|
 | 1. Summarize the text | Claude | `/summarize <session>` | `01-summary.md` |
-| 2. Collect annotations | you + readers | — (drop files in) | `02-annotations/` |
-| 3. Record + transcribe discussion | you / Claude | `/transcribe <session>` | `03-discussion/transcript.md` |
-| 4. Synthesize text + discussion | Claude | `/synthesize <session>` | `04-synthesis.md` |
+| 2. Annotate, then discuss + record | you + readers | — (drop files in) | `02-annotations/`, `03-discussion/` audio |
+| 3. Transcribe the discussion | you / Claude | `/transcribe <session>` | `03-discussion/transcript.md` |
+| 4. Label speakers (only if diarized) | you + Claude | `/transcribe <session> --diarize` | relabeled transcript |
+| 5. Synthesize text + discussion | Claude | `/synthesize <session>` | `04-synthesis.md` |
 
 ## Quickstart
 
@@ -47,7 +48,7 @@ pip install -r requirements.txt   # faster-whisper + pdf-annotations-to-markdown
 # Stage 3 (audio transcription) also needs ffmpeg on your PATH:
 #   https://ffmpeg.org/download.html
 
-# Optional: speaker labels (Stage 3, diarized)
+# Optional: speaker labels (Stages 3–4, diarized)
 pip install whisperx              # local; uses pyannote for diarization
 
 # Optional: EPUB texts (Stage 1) and PDF export (/export)
@@ -61,7 +62,7 @@ uses to extract highlights/comments (with author) from annotated PDFs dropped in
 `02-annotations/` — the plain reader can't recover comment text or who wrote it.
 
 If you don't want to set up transcription, skip `/transcribe` and just create
-`03-discussion/transcript.md` yourself — Stage 4 only needs the text.
+`03-discussion/transcript.md` yourself — Stage 5 only needs the text.
 
 ### Transcribe manually
 
@@ -74,7 +75,7 @@ accurate). Default is `small`.
 
 ### Speaker labels (diarization)
 
-By default the transcript has no speaker labels — Stage 4 works fine without
+By default the transcript has no speaker labels — Stage 5 works fine without
 them. To get "who said what", use `--diarize`:
 
 ```bash
@@ -93,10 +94,12 @@ One-time setup for diarization:
    (PowerShell: `$env:HF_TOKEN = "hf_xxx"`), or pass `--hf-token hf_xxx`.
 
 Pass `--max-speakers` (and optionally `--min-speakers`) with your group size to
-improve accuracy. Speakers come out as `SPEAKER_00`, `SPEAKER_01`, … in order of
-appearance; find-and-replace them with real names afterward. Diarization is
-noticeably slower than plain transcription and the first run downloads the
-pyannote model.
+improve accuracy. Speakers come out anonymous — `SPEAKER_00`, `SPEAKER_01`, … in
+order of appearance. Putting real names on them is **Stage 4 (label speakers)**:
+you say who each one is (only you can — it's your group's voices) and Claude does
+the find-and-replace; run `/transcribe <session> --diarize` and it walks you
+through it. Diarization is noticeably slower than plain transcription and the
+first run downloads the pyannote model.
 
 ## Annotations (Stage 2)
 
@@ -128,7 +131,7 @@ If a member can't (or forgot to) set a name, a reliable fallback is to put their
 name in the **filename** (e.g. `ada-markup.pdf`) and mention it — or just have
 them paste their notes as text instead.
 
-## What `/synthesize` produces (Stage 4)
+## What `/synthesize` produces (Stage 5)
 
 The synthesis is **text-centered**, not a recap of the meeting. `04-synthesis.md`
 has two parts:
@@ -149,7 +152,7 @@ discussion. `sessions/0000-EXAMPLE/04-synthesis.md` is a worked example.
 ## Working in another language
 
 The two Claude-written outputs — the summary (Stage 1) and the synthesis
-(Stage 4) — can be produced in any language. Two ways to choose it:
+(Stage 5) — can be produced in any language. Two ways to choose it:
 
 - **Per run:** add a `--lang` flag, e.g. `/summarize sessions/0001-foo --lang Spanish`
   or `/synthesize sessions/0001-foo --lang French`.
@@ -187,4 +190,4 @@ gitignored, so they stay local like the source texts.)
 
 See `CLAUDE.md` for the full folder/command conventions. `sessions/0000-EXAMPLE/`
 is a scratch session for testing — it includes an annotated-PDF reader
-(`dara-markup.pdf`) so you can see the Stage 2 → Stage 4 PDF path end to end.
+(`dara-markup.pdf`) so you can see the Stage 2 → Stage 5 PDF path end to end.

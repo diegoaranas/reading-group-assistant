@@ -1,9 +1,9 @@
 ---
-description: Stage 4 — normalize annotations and synthesize the text + the discussion's contribution
+description: Stage 5 — normalize annotations and synthesize the text + the discussion's contribution
 argument-hint: <session-folder> [--lang <language>]
 ---
 
-Stage 4 of the reading-group workflow. The synthesis is **text-centered**: it
+Stage 5 of the reading-group workflow. The synthesis is **text-centered**: it
 gives an authoritative account of the text on its own terms, then records what
 the discussion *contributed* to understanding that text. The goal is to capture
 how the readers advanced (or failed to advance) understanding — **not** to
@@ -64,7 +64,9 @@ Produce `<session>/02-annotations/normalized.md`:
 ## Step 2 — Read the rest of the session
 
 - `<session>/03-discussion/transcript.md` (the recorded discussion). If it's
-  missing, tell me and stop — Stage 4 needs it (or a hand-placed transcript).
+  missing, tell me and stop — Stage 5 needs it (or a hand-placed transcript).
+  Note how it's attributed: name-labeled, diarized-but-unidentified
+  (`SPEAKER_NN`), or unlabeled — this sets how precisely you can attribute Part II.
 - `<session>/01-summary.md` for context, and the source text in `<session>/source/`
   if you need to ground Part I (re-ingest per the Stage 1 ingestion rules in
   `CLAUDE.md` if necessary).
@@ -104,7 +106,10 @@ understanding the text, organized by **type of contribution**:
 Rules for Part II:
 
 - Attribute contributions to readers by name where the source supports it;
-  `Unattributed` otherwise.
+  `Unattributed` otherwise. For points that come only from the transcript, you can
+  be no more precise than its labels allow: a named reader if the transcript names
+  speakers, otherwise the anonymous `SPEAKER_NN` or a thematic point — never
+  manufacture a name to fill the gap.
 - **Be honest about absence.** If a category produced nothing, say so plainly
   ("Nothing substantive here") rather than padding. A thin discussion should read
   as thin — that candor is the point of this stage.

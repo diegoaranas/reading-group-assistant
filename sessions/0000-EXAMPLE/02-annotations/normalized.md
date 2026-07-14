@@ -5,7 +5,7 @@
 > Dara's remarks were extracted from an annotated PDF (`dara-markup.pdf` →
 > `dara-markup.annotations.md`) — highlight + margin comment per entry.
 >
-> *(EXAMPLE output — illustrates Stage 4, step 1.)*
+> *(EXAMPLE output — illustrates Stage 5, step 1.)*
 
 ## Ada (`ada-email.txt`)
 

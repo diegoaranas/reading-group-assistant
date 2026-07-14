@@ -1,10 +1,11 @@
 ---
-description: Stage 3 — transcribe a discussion audio recording
+description: Stage 3 — transcribe a discussion audio recording (and Stage 4 — label speakers, if diarized)
 argument-hint: <session-folder | path-to-audio>
 ---
 
 Stage 3 of the reading-group workflow: turn the recorded discussion audio into a
-text transcript that Stage 4 can read.
+text transcript that Stage 5 (synthesis) can read. When run with `--diarize`, this
+command also covers Stage 4 — relabeling the anonymous speakers with member names.
 
 Target: **$ARGUMENTS**
 
@@ -46,11 +47,14 @@ project root (loaded automatically), or the `HF_TOKEN` environment variable, or
 
 Confirm the transcript path and its length.
 
-- **Default mode:** the transcript has **no speaker labels**; Stage 4 works
+- **Default mode:** the transcript has **no speaker labels**; Stage 5 works
   thematically regardless. If I want labels, offer to re-run with `--diarize`.
-- **Diarized mode:** speakers are labelled `SPEAKER_00`, `SPEAKER_01`, … in order
-  of appearance. Offer to map those to real member names (from `meta.md`) with a
-  find-and-replace if I can identify who's who.
+- **Diarized mode (Stage 4 — label speakers):** speakers are labelled
+  `SPEAKER_00`, `SPEAKER_01`, … in order of appearance. These are anonymous — only
+  I can say who each one is. List the labels (with a short sample line each, and
+  the members from `meta.md`) and ask me to identify them. Relabel by
+  find-and-replace **only** from the mapping I give you; never guess a name from
+  what a speaker said. Leave any speaker I can't place as `SPEAKER_NN`.
 
 Reminder: I can also skip this command entirely and hand-place
-`03-discussion/transcript.md` myself — Stage 4 only needs the text.
+`03-discussion/transcript.md` myself — Stage 5 only needs the text.

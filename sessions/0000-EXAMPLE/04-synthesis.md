@@ -4,7 +4,7 @@
 > terms — written as if the discussion never happened. **Part II** records what,
 > if anything, the discussion *added* to our understanding of the text.
 >
-> *(EXAMPLE output — illustrates the shape of a Stage 4 synthesis.)*
+> *(EXAMPLE output — illustrates the shape of a Stage 5 synthesis.)*
 
 ## Part I — The text
 
