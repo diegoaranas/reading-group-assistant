@@ -16,7 +16,8 @@ Usage:
                                        [--min-speakers N] [--max-speakers N]
 
 If --out is omitted, writes `transcript.md` next to the audio file.
-The token may also be supplied via the HF_TOKEN environment variable.
+The token may be supplied via --hf-token, the HF_TOKEN environment variable, or an
+`HF_TOKEN=...` line in a git-ignored `.env` at the project root (loaded automatically).
 """
 from __future__ import annotations
 
@@ -24,6 +25,28 @@ import argparse
 import os
 import sys
 from pathlib import Path
+
+
+def load_dotenv() -> None:
+    """Populate os.environ from a project-root .env file (without overriding).
+
+    Keeps secrets like HF_TOKEN out of the shell and out of git: paste the token
+    into .env (git-ignored) and it's picked up automatically. Existing environment
+    variables win, so an explicitly exported HF_TOKEN still takes precedence.
+    No dependency on python-dotenv — the format we need is just KEY=VALUE lines.
+    """
+    env_path = Path(__file__).resolve().parent.parent / ".env"
+    if not env_path.exists():
+        return
+    for raw in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
 
 
 def fmt_ts(seconds: float) -> str:
@@ -82,7 +105,11 @@ def _load_diarization_pipeline(hf_token: str, device: str):
         from whisperx.diarize import DiarizationPipeline
     except ImportError:
         from whisperx import DiarizationPipeline  # older whisperX
-    return DiarizationPipeline(use_auth_token=hf_token, device=device)
+    # whisperX >=3.8 renamed the token kwarg from `use_auth_token` to `token`.
+    try:
+        return DiarizationPipeline(token=hf_token, device=device)
+    except TypeError:
+        return DiarizationPipeline(use_auth_token=hf_token, device=device)
 
 
 def transcribe_diarized(
@@ -153,6 +180,8 @@ def transcribe_diarized(
 
 
 def main() -> int:
+    # Load .env before argparse so HF_TOKEN's default picks it up.
+    load_dotenv()
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )

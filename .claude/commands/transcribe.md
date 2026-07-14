@@ -32,7 +32,8 @@ python scripts/transcribe.py "<audio-path>" --out "<session>/03-discussion/trans
   --diarize --max-speakers <number-of-members-if-known>
 ```
 
-The token is read from the `HF_TOKEN` environment variable (preferred) or
+The token is read from an `HF_TOKEN=...` line in the git-ignored `.env` at the
+project root (loaded automatically), or the `HF_TOKEN` environment variable, or
 `--hf-token`. If I tell you how many people were in the discussion, pass it as
 `--max-speakers` (and optionally `--min-speakers`) to improve accuracy.
 

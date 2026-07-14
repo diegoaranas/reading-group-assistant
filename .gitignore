@@ -9,6 +9,9 @@ __pycache__/
 *.pyc
 .venv/
 
+# Secrets — HuggingFace token etc. Never commit.
+.env
+
 # Audio recordings can be large — keep them out of version control.
 # (Transcripts ARE tracked; the audio itself usually shouldn't be.)
 sessions/**/03-discussion/*.mp3
